@@ -1,8 +1,8 @@
 FROM ubuntu:latest
 MAINTAINER Talha Demir 
 COPY . /usr/share/nginx/html
-RUN apt-get update
-RUN apt-get install -y nginx nodejs
+RUN yum update
+RUN yum install -y nginx nodejs
 
 #varsayılan nginx.conf'u kaldır
 RUN rm -v /etc/nginx/nginx.conf
