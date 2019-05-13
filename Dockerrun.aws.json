@@ -1,9 +1,5 @@
 {
 	"AWSEBDockerrunVersion":1,
-	"IMAGE":{
-		"Name": ubuntu/staticwebsite
-		"Update": true
-		},
 	"Ports": [
 		{
 		"Container":"80"
