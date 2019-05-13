@@ -1,9 +1,8 @@
-FROM ubuntu:latest
-MAINTAINER Talha Demir 
+FROM joycoding/centos-nginx-nodejs
+MAINTAINER Talha Demir
 COPY . /usr/share/nginx/html
 USER root
-RUN yum update
-RUN yum install -y nginx nodejs
+RUN yum -y update
 
 #varsayılan nginx.conf'u kaldır
 RUN rm -v /etc/nginx/nginx.conf
