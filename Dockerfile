@@ -2,6 +2,7 @@ FROM joycoding/centos-nginx-nodejs
 MAINTAINER Talha Demir
 COPY . /usr/share/nginx/html
 USER root
+RUN yum -y install initscripts && yum clean all
 RUN yum -y update
 
 #varsayılan nginx.conf'u kaldır
