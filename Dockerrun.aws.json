@@ -1,12 +1,11 @@
 {
-  "AWSEBDockerrunVersion": "1",
+	"AWSEBDockerrunVersion": "1",
   "Image": {
-    "Name": "talha/beanstalk-flask",
-    "Update": "true"
+    "Name": "Talha/staticweb"
   },
   "Ports": [
     {
-      "ContainerPort": "80"
+      "ContainerPort": 80
     }
-  ]
+	]
 }
