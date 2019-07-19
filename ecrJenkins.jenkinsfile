@@ -10,7 +10,7 @@ pipeline
         VERSION = 'latest'
         PROJECT = 'pim_api'
         IMAGE = 'pim_api:latest'
-        ECRURL = '842810336739.dkr.ecr.eu-west-1.amazonaws.com/talhadeneme'
+        ECRURL = '842810336739.dkr.ecr.eu-west-1.amazonaws.com/talhadeneme/'
         ECRCRED = 'ecr:eu-central-1:tap_ecr'
     }
     stages
