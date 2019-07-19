@@ -56,7 +56,7 @@ pipeline
                     //docker.withRegistry(ECRURL, ECRCRED)
                     //docker.withRegistery(ECRURL)
                     //{
-                        docker.image(IMAGE).push()
+                        docker.image("$ECRURL$IMAGE").push()
                     //}
                 }
             }
