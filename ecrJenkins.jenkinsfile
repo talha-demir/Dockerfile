@@ -29,6 +29,7 @@ pipeline
                     // set the build display name
                     currentBuild.displayName = "#${BUILD_ID}-${VERSION}"//çalışan build'in(currentBuild) displayName'ine BUILD_ID-VERSION ataması yapıyor
                     IMAGE = "$PROJECT:$VERSION"
+                    BUILD = "$ECRURL:$IMAGE"
                 }
             }
         }
@@ -40,7 +41,7 @@ pipeline
                 {
                     // Build the docker image using a Dockerfile
                     //docker.build("$IMAGE","dockerfile/Path")
-                    docker.build("$ECRURL:$IMAGE")
+                    docker.build("$BUILD")
                 }
             }
         }
@@ -56,7 +57,7 @@ pipeline
                     //docker.withRegistry(ECRURL, ECRCRED)
                     //docker.withRegistery(ECRURL, ECRCRED)
                     //{
-                        docker.image("$ECRURL:$IMAGE").push()
+                        docker.image("$BUILD").push()
                     //}
                 }
             }
