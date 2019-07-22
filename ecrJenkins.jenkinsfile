@@ -11,7 +11,7 @@ pipeline
         PROJECT = 'pim_api'
         IMAGE = 'pim_api:latest'
         ECRURL = '842810336739.dkr.ecr.eu-west-1.amazonaws.com/talhadeneme'
-        //ECRCRED = 'ecr:eu-central-1:tap_ecr'
+        ECRCRED = 'ecr:eu-central-1:tap_ecr'
     }
     stages
     {
@@ -22,7 +22,7 @@ pipeline
                 script 
                 {
                     // calculate GIT lastest commit short-hash
-                    gitCommitHash = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()// returnStdout shell komutunun çıktısını değişkene atama yapıyor. trim() metodu içine yazılan karakterleri atar burda baştaki ve sondaki boşlukları atmak için kullanılmış. "git rev-parse HEAD" komutu commit'in SHA1 kodunu döndürür 
+                    gitCommitHash = sh(returnStdout: true, script: 'git rev-parse MASTER').trim() // returnStdout shell komutunun çıktısını değişkene atama yapıyor. trim() metodu içine yazılan karakterleri atar burda baştaki ve sondaki boşlukları atmak için kullanılmış. "git rev-parse HEAD" komutu commit'in SHA1 kodunu döndürür 
                     shortCommitHash = gitCommitHash.take(7) //take() metodu içine yazılan sayı kadar string'ten karakter alır.
                     // calculate a sample version tag
                     VERSION = shortCommitHash//versiyon olarak shortCommitHash atanıyor
