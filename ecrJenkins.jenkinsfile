@@ -32,7 +32,7 @@ pipeline
                     VERSION = shortCommitHash//versiyon olarak shortCommitHash atanıyor
                     // set the build display name
                     currentBuild.displayName = "#${BUILD_ID}-${VERSION}"//çalışan build'in(currentBuild) displayName'ine BUILD_ID-VERSION ataması yapıyor
-                    IMAGE = "${PROJECT}-${VERSION}"
+                    env.IMAGE = "${PROJECT}-${VERSION}"
                 }
             }
         }
@@ -86,7 +86,7 @@ pipeline
 
 
                     echo "====++++Deployment zip to S3++++===="
-                    sh 'aws s3 cp $ZIP s3://$EB_BUCKET/$ZIP'
+                    sh 'aws s3 cp $ZIP s3://$EB_BUCKET/$IMAGE.zip'
 
                     echo "====++++yeni app versiyon oluşturma++++===="
                     // Create a new application version with the zipped up Dockerrun file
