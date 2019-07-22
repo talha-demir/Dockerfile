@@ -66,16 +66,8 @@ pipeline
                 }
             }
         }
-    }
-    post
-    {
-        always
-        {
-            // make sure that the Docker image is removed
-            sh "docker rmi $ECRURL:$IMAGE | true"
-        }
-    }
-    stage('Create AWSEB Zip')
+
+        stage('Create AWSEB Zip')
     {
         steps
         {
@@ -109,4 +101,20 @@ pipeline
             }
         }
     }
+
+
+
+
+
+
+    }
+    post
+    {
+        always
+        {
+            // make sure that the Docker image is removed
+            sh "docker rmi $ECRURL:$IMAGE | true"
+        }
+    }
+    
 } 
