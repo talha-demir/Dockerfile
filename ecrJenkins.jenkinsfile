@@ -23,7 +23,7 @@ pipeline
                 {
                     // calculate GIT lastest commit short-hash
                     gitCommitHash = sh(returnStdout: true, script: 'git rev-parse HEAD').trim() // returnStdout shell komutunun çıktısını değişkene atama yapıyor. trim() metodu içine yazılan karakterleri atar burda baştaki ve sondaki boşlukları atmak için kullanılmış. "git rev-parse HEAD" komutu commit'in SHA1 kodunu döndürür 
-                    echo "====++++gitCommitHash++++===="
+                    echo "====++++$gitCommitHash++++===="
                     shortCommitHash = gitCommitHash.take(7) //take() metodu içine yazılan sayı kadar string'ten karakter alır.
                     // calculate a sample version tag
                     VERSION = shortCommitHash//versiyon olarak shortCommitHash atanıyor
