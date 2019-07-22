@@ -63,6 +63,7 @@ pipeline
             }
         }
     }
+    /*
     post
     {
         always
@@ -71,4 +72,5 @@ pipeline
             sh "docker rmi $IMAGE | true"
         }
     }
+    */
 } 
