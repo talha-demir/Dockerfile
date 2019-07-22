@@ -10,7 +10,7 @@ pipeline
         VERSION = 'latest'
         PROJECT = 'pim_api'
         IMAGE = 'pim_api:latest'
-        ECRURL = '842810336739.dkr.ecr.eu-west-1.amazonaws.com/talhadeneme/'
+        ECRURL = '842810336739.dkr.ecr.eu-west-1.amazonaws.com/talhadeneme'
         ECRCRED = 'ecr:eu-central-1:tap_ecr'
     }
     stages
@@ -43,7 +43,7 @@ pipeline
                 {
                     // Build the docker image using a Dockerfile
                     //docker.build("$IMAGE","dockerfile/Path")
-                    docker.build("$IMAGE")
+                    docker.build("$BUILD")
                 }
             }
         }
@@ -59,7 +59,7 @@ pipeline
                     //docker.withRegistry(ECRURL, ECRCRED)
                     //docker.withRegistery(ECRURL, ECRCRED)
                     //{
-                        docker.image("$IMAGE").push()
+                        docker.image("$BUILD").push()
                     //}
                 }
             }
