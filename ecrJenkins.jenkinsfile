@@ -9,7 +9,7 @@ pipeline
     {
         VERSION = ''
         PROJECT = 'pim_api'
-        IMAGE = ''
+        IMAGE = 'latest'
         ECRURL = '842810336739.dkr.ecr.eu-west-1.amazonaws.com/talhadeneme'
         REGION = 'eu-west-1'
         ENVIRONMENT_NAME = 'static-web-elbtype-app'
@@ -32,7 +32,7 @@ pipeline
                     VERSION = shortCommitHash//versiyon olarak shortCommitHash atanıyor
                     // set the build display name
                     currentBuild.displayName = "#${BUILD_ID}-${VERSION}"//çalışan build'in(currentBuild) displayName'ine BUILD_ID-VERSION ataması yapıyor
-                    env.IMAGE = "${PROJECT}-${VERSION}"
+                    IMAGE = "${PROJECT}-${VERSION}"
                 }
             }
         }
