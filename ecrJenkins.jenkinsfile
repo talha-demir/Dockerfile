@@ -7,9 +7,9 @@ pipeline
     agent any //herhangibir agent'ta derleyebilirsin
     environment //environment variable tanımlanıyor
     {
-        VERSION = 'latest'
+        //VERSION = 'latest'
         PROJECT = 'pim_api'
-        IMAGE = 'image'
+        //IMAGE = 'image'
         ECRURL = '842810336739.dkr.ecr.eu-west-1.amazonaws.com/talhadeneme'
         REGION = 'eu-west-1'
         ENVIRONMENT_NAME = 'static-web-elbtype-app'
@@ -29,10 +29,10 @@ pipeline
                     gitCommitHash = sh(returnStdout: true, script: 'git rev-parse HEAD').trim() // returnStdout shell komutunun çıktısını değişkene atama yapıyor. trim() metodu içine yazılan karakterleri atar burda baştaki ve sondaki boşlukları atmak için kullanılmış. "git rev-parse HEAD" komutu commit'in SHA1 kodunu döndürür 
                     shortCommitHash = gitCommitHash.take(7) //take() metodu içine yazılan sayı kadar string'ten karakter alır.
                     // calculate a sample version tag
-                    VERSION = shortCommitHash//versiyon olarak shortCommitHash atanıyor
+                    env.VERSION = shortCommitHash//versiyon olarak shortCommitHash atanıyor
                     // set the build display name
                     currentBuild.displayName = "#${BUILD_ID}-${VERSION}"//çalışan build'in(currentBuild) displayName'ine BUILD_ID-VERSION ataması yapıyor
-                    IMAGE = "${PROJECT}-${VERSION}"
+                    env.IMAGE = "${PROJECT}-${VERSION}"
                 }
             }
         }
@@ -80,23 +80,23 @@ pipeline
                     // Replace the <NAME> with the real name
                     sh 'sed "s/<PROJECTNAME>/$PROJECT/" Dockerrun.aws.json'
                     //# Replace the <TAG> with the real version number
-                    sh 'sed "s/<TAG>/$VERSION/" Dockerrun.aws.json'
+                    sh 'sed "s/<TAG>/${env.VERSION}/" Dockerrun.aws.json'
 
-                    sh 'zip -r $IMAGE.zip Dockerrun.aws.json'
+                    sh 'zip -r ${env.IMAGE}.zip Dockerrun.aws.json'
 
 
                     echo "====++++Deployment zip to S3++++===="
-                    sh 'aws s3 cp $IMAGE.zip s3://$EB_BUCKET/$IMAGE.zip'
+                    sh 'aws s3 cp $IMAGE.zip s3://$EB_BUCKET/${env.IMAGE}.zip'
 
                     echo "====++++yeni app versiyon oluşturma++++===="
                     // Create a new application version with the zipped up Dockerrun file
                     sh 'aws elasticbeanstalk create-application-version --application-name $NAME-application \
-                        --version-label $VERSION --source-bundle S3Bucket=$EB_BUCKET,S3Key=$ZIP'
+                        --version-label $VERSION --source-bundle S3Bucket=$EB_BUCKET,S3Key=${env.IMAGE}'
                     
                     echo "====++++yeni app versiyon ile environment güncelleme++++===="
                     // Update the environment to use the new application version
-                    sh 'aws elasticbeanstalk update-environment --environment-name $NAME \
-                        --version-label $VERSION'
+                    sh 'aws elasticbeanstalk update-environment --environment-name ${ENVIRONMENT_NAME} \
+                        --version-label ${env.VERSION}'
                 }
             }
         }/*
