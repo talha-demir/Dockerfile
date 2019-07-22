@@ -77,27 +77,27 @@ pipeline
                     echo "====++++create Dockerrun.aws.json++++===="
 
                     // Replace the <AWS_ACCOUNT_ID> with the real ID
-                    sh "ed -i='' "s/<AWS_ACCOUNT_ID>/$AWS_ACCOUNT_ID/" Dockerrun.aws.json"
+                    sh 'ed -i='' "s/<AWS_ACCOUNT_ID>/$AWS_ACCOUNT_ID/" Dockerrun.aws.json'
                     // Replace the <NAME> with the real name
-                    sh "sed -i='' "s/<NAME>/$NAME/" Dockerrun.aws.json"
+                    sh 'sed -i='' "s/<NAME>/$NAME/" Dockerrun.aws.json'
                     //# Replace the <TAG> with the real version number
-                    sh "sed -i='' "s/<TAG>/$VERSION/" Dockerrun.aws.json"
+                    sh 'sed -i='' "s/<TAG>/$VERSION/" Dockerrun.aws.json'
 
-                    sh "zip -r $ZIP Dockerrun.aws.json"
+                    sh 'zip -r $ZIP Dockerrun.aws.json'
 
 
                     echo "====++++Deployment zip to S3++++===="
-                    sh "aws s3 cp $ZIP s3://$EB_BUCKET/$ZIP"
+                    sh 'aws s3 cp $ZIP s3://$EB_BUCKET/$ZIP'
 
                     echo "====++++yeni app versiyon oluşturma++++===="
                     // Create a new application version with the zipped up Dockerrun file
-                    sh "aws elasticbeanstalk create-application-version --application-name $NAME-application \
-                        --version-label $VERSION --source-bundle S3Bucket=$EB_BUCKET,S3Key=$ZIP"
+                    sh 'aws elasticbeanstalk create-application-version --application-name $NAME-application \
+                        --version-label $VERSION --source-bundle S3Bucket=$EB_BUCKET,S3Key=$ZIP'
                     
                     echo "====++++yeni app versiyon ile environment güncelleme++++===="
                     // Update the environment to use the new application version
-                    sh "aws elasticbeanstalk update-environment --environment-name $NAME \
-                        --version-label $VERSION"
+                    sh 'aws elasticbeanstalk update-environment --environment-name $NAME \
+                        --version-label $VERSION'
                 }
             }
         }/*
