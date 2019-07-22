@@ -83,9 +83,9 @@ pipeline
                     // Replace the <NAME> with the real name
                     sh 'sed "s/<PROJECTNAME>/$PROJECT/" Dockerrun.aws.json'
                     //# Replace the <TAG> with the real version number
-                    sh 'sed "s/<TAG>/${VERSION}/" Dockerrun.aws.json'
+                    sh 'sed "s/<TAG>/$VERSION/" Dockerrun.aws.json'
 
-                    sh 'zip -r "${IMAGE}.zip" Dockerrun.aws.json'
+                    sh 'zip -r "$IMAGE.zip" Dockerrun.aws.json'
 
 
                     echo "====++++Deployment zip to S3++++===="
@@ -98,8 +98,8 @@ pipeline
                     
                     echo "====++++yeni app versiyon ile environment güncelleme++++===="
                     // Update the environment to use the new application version
-                    sh 'aws elasticbeanstalk update-environment --environment-name ${ENVIRONMENT_NAME} \
-                        --version-label ${VERSION}'
+                    sh 'aws elasticbeanstalk update-environment --environment-name $ENVIRONMENT_NAME \
+                        --version-label $VERSION'
                 }
             }
         }/*
