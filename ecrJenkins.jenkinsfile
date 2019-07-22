@@ -85,7 +85,7 @@ pipeline
                     //# Replace the <TAG> with the real version number
                     sh 'sed "s/<TAG>/${VERSION}/" Dockerrun.aws.json'
 
-                    sh 'zip -r ${IMAGE}.zip Dockerrun.aws.json'
+                    sh 'zip -r "${IMAGE}.zip" Dockerrun.aws.json'
 
 
                     echo "====++++Deployment zip to S3++++===="
