@@ -100,7 +100,7 @@ pipeline
                         --version-label $VERSION'
                 }
             }
-        }
+        }/*
         post
         {
             always
@@ -109,6 +109,7 @@ pipeline
                 sh "docker rmi $ECRURL:$IMAGE | true"
             }
         }
+        */
     }
     
 } 
