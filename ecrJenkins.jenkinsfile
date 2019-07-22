@@ -7,7 +7,7 @@ pipeline
     agent any //herhangibir agent'ta derleyebilirsin
     environment //environment variable tanımlanıyor
     {
-        VERSION = 'latest'
+        VERSION = ''
         PROJECT = 'pim_api'
         IMAGE = ''
         ECRURL = '842810336739.dkr.ecr.eu-west-1.amazonaws.com/talhadeneme'
@@ -80,13 +80,13 @@ pipeline
                     // Replace the <NAME> with the real name
                     sh 'sed "s/<PROJECTNAME>/${PROJECT}/" Dockerrun.aws.json'
                     //# Replace the <TAG> with the real version number
-                    sh 'sed "s/<TAG>/${VERSION}/" Dockerrun.aws.json'
+                    sh 'sed "s/<TAG>/"${VERSION}"/" Dockerrun.aws.json'
 
                     sh 'zip -r $IMAGE.zip Dockerrun.aws.json'
 
 
                     echo "====++++Deployment zip to S3++++===="
-                    sh 'aws s3 cp $ZIP s3://$EB_BUCKET/${IMAGE}.zip'
+                    sh 'aws s3 cp $ZIP s3://$EB_BUCKET/"${IMAGE}.zip"'
 
                     echo "====++++yeni app versiyon oluşturma++++===="
                     // Create a new application version with the zipped up Dockerrun file
