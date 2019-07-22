@@ -79,7 +79,7 @@ pipeline
                     // Replace the <AWS_ACCOUNT_ID> with the real ID
                     sh 'sed "s/<AWS_ACCOUNT_ID>/$AWS_ACCOUNT_ID/" Dockerrun.aws.json'
                     // Replace the <NAME> with the real name
-                    sh 'sed "s/<NAME>/$NAME/" Dockerrun.aws.json'
+                    sh 'sed "s/<PROJECTNAME>/$PROJECT/" Dockerrun.aws.json'
                     //# Replace the <TAG> with the real version number
                     sh 'sed "s/<TAG>/$VERSION/" Dockerrun.aws.json'
 
