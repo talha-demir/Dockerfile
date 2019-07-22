@@ -1,3 +1,6 @@
+def VERSION = 'UNKNOWN'
+def IMAGE = 'UNKNOWN'
+
 pipeline
 {
     options
@@ -29,10 +32,10 @@ pipeline
                     gitCommitHash = sh(returnStdout: true, script: 'git rev-parse HEAD').trim() // returnStdout shell komutunun çıktısını değişkene atama yapıyor. trim() metodu içine yazılan karakterleri atar burda baştaki ve sondaki boşlukları atmak için kullanılmış. "git rev-parse HEAD" komutu commit'in SHA1 kodunu döndürür 
                     shortCommitHash = gitCommitHash.take(7) //take() metodu içine yazılan sayı kadar string'ten karakter alır.
                     // calculate a sample version tag
-                    def VERSION = shortCommitHash//versiyon olarak shortCommitHash atanıyor
+                    VERSION = shortCommitHash//versiyon olarak shortCommitHash atanıyor
                     // set the build display name
                     currentBuild.displayName = "#${BUILD_ID}-${VERSION}"//çalışan build'in(currentBuild) displayName'ine BUILD_ID-VERSION ataması yapıyor
-                    def IMAGE = "${PROJECT}-${VERSION}"
+                    IMAGE = "${PROJECT}-${VERSION}"
                 }
             }
         }
