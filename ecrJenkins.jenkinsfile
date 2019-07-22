@@ -15,7 +15,7 @@ pipeline
         ENVIRONMENT_NAME = 'static-web-elbtype-app'
         APP_NAME = 'StaticWeb'
         AWS_ACCOUNT_ID = '842810336739'
-        ZIP = "$VERSION.zip"
+        //ZIP = "$VERSION.zip"
         EB_BUCKET = "elasticbeanstalk-eu-west-1-842810336739"
     }
     stages
