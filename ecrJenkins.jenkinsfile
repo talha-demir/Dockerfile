@@ -40,7 +40,7 @@ pipeline
                 {
                     // Build the docker image using a Dockerfile
                     //docker.build("$IMAGE","dockerfile/Path")
-                    docker.build("$IMAGE")
+                    docker.build("$ECRURL:$IMAGE")
                 }
             }
         }
@@ -54,10 +54,10 @@ pipeline
                     //sh("eval \$(aws ecr get-login --no-include-email | sed 's|https://||')")
                     // Push the Docker image to ECR
                     //docker.withRegistry(ECRURL, ECRCRED)
-                    docker.withRegistery(ECRURL, ECRCRED)
-                    {
-                        docker.image("$IMAGE").push()
-                    }
+                    //docker.withRegistery(ECRURL, ECRCRED)
+                    //{
+                        docker.image("$ECRURL:$IMAGE").push()
+                    //}
                 }
             }
         }
