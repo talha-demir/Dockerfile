@@ -9,9 +9,14 @@ pipeline
     {
         VERSION = 'latest'
         PROJECT = 'pim_api'
-        IMAGE = 'pim_api:latest'
+        IMAGE = ''
         ECRURL = '842810336739.dkr.ecr.eu-west-1.amazonaws.com/talhadeneme'
-        ECRCRED = 'ecr:eu-central-1:tap_ecr'
+        REGION = 'eu-west-1'
+        ENVIRONMENT_NAME = 'static-web-elbtype-app'
+        APP_NAME = 'StaticWeb'
+        AWS_ACCOUNT_ID = '842810336739'
+        ZIP = "$VERSION.zip"
+        EB_BUCKET = "elasticbeanstalk-eu-west-1-842810336739"
     }
     stages
     {
@@ -68,6 +73,40 @@ pipeline
         {
             // make sure that the Docker image is removed
             sh "docker rmi $ECRURL:$IMAGE | true"
+        }
+    }
+    stage('Create AWSEB Zip')
+    {
+        steps
+        {
+            script
+            {
+
+                echo "====++++create Dockerrun.aws.json++++===="
+
+                // Replace the <AWS_ACCOUNT_ID> with the real ID
+                sh 'sed -i='' "s/<AWS_ACCOUNT_ID>/$AWS_ACCOUNT_ID/" Dockerrun.aws.json'
+                // Replace the <NAME> with the real name
+                sh 'sed -i='' "s/<PROJECTNAME>/$PROJECT/" Dockerrun.aws.json'
+                //# Replace the <TAG> with the real version number
+                sh 'sed -i='' "s/<TAG>/$VERSION/" Dockerrun.aws.json'
+
+                sh 'zip -r $ZIP Dockerrun.aws.json'
+
+
+                echo "====++++Deployment zip to S3++++===="
+                sh 'aws s3 cp $ZIP s3://$EB_BUCKET/$ZIP'
+
+                echo "====++++yeni app versiyon oluşturma++++===="
+                // Create a new application version with the zipped up Dockerrun file
+                sh 'aws elasticbeanstalk create-application-version --application-name $NAME-application \
+                    --version-label $VERSION --source-bundle S3Bucket=$EB_BUCKET,S3Key=$ZIP'
+                    
+                echo "====++++yeni app versiyon ile environment güncelleme++++===="
+                // Update the environment to use the new application version
+                sh 'aws elasticbeanstalk update-environment --environment-name $NAME \
+                    --version-label $VERSION'
+            }
         }
     }
 } 

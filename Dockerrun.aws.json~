@@ -1,0 +1,11 @@
+{
+	"AWSEBDockerrunVersion": "1",
+  "Image": {
+    "Name": "Talha/staticweb"
+  },
+  "Ports": [
+    {
+      "ContainerPort": 80
+    }
+	]
+}
