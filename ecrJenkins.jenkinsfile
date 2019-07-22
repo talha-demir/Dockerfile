@@ -15,7 +15,6 @@ pipeline
         ENVIRONMENT_NAME = 'static-web-elbtype-app'
         APP_NAME = 'StaticWeb'
         AWS_ACCOUNT_ID = '842810336739'
-        //ZIP = "$VERSION.zip"
         EB_BUCKET = "elasticbeanstalk-eu-west-1-842810336739"
     }
     stages
@@ -83,7 +82,7 @@ pipeline
                     //# Replace the <TAG> with the real version number
                     sh 'sed "s/<TAG>/$VERSION/" Dockerrun.aws.json'
 
-                    sh 'zip -r $ZIP Dockerrun.aws.json'
+                    sh 'zip -r $IMAGE.zip Dockerrun.aws.json'
 
 
                     echo "====++++Deployment zip to S3++++===="
