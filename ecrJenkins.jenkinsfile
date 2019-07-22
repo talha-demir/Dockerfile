@@ -32,7 +32,7 @@ pipeline
                     VERSION = shortCommitHash//versiyon olarak shortCommitHash atanıyor
                     // set the build display name
                     currentBuild.displayName = "#${BUILD_ID}-${VERSION}"//çalışan build'in(currentBuild) displayName'ine BUILD_ID-VERSION ataması yapıyor
-                    env.IMAGE = "${PROJECT}-${VERSION}"
+                    IMAGE = "${PROJECT}-${VERSION}"
                 }
             }
         }
