@@ -41,7 +41,7 @@ pipeline
                 {
                     // Build the docker image using a Dockerfile
                     //docker.build("$IMAGE","dockerfile/Path")
-                    docker.build("$IMAGE")
+                    docker.build("$ECRURL:$IMAGE")
                 }
             }
         }
