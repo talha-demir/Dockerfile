@@ -9,7 +9,7 @@ pipeline
     {
         VERSION = 'latest'
         PROJECT = 'pim_api'
-        IMAGE = ''
+        IMAGE = 'pim_api:latest'
         ECRURL = '842810336739.dkr.ecr.eu-west-1.amazonaws.com/talhadeneme'
         REGION = 'eu-west-1'
         ENVIRONMENT_NAME = 'static-web-elbtype-app'
