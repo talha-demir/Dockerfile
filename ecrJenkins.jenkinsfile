@@ -29,9 +29,6 @@ pipeline
                     // set the build display name
                     currentBuild.displayName = "#${BUILD_ID}-${VERSION}"//çalışan build'in(currentBuild) displayName'ine BUILD_ID-VERSION ataması yapıyor
                     IMAGE = "$PROJECT_$VERSION"
-                    echo "====++++$IMAGE++++===="
-                    BUILD = "$ECRURL:$IMAGE"
-                    echo "====++++$BUILD++++===="
                 }
             }
         }
@@ -65,7 +62,6 @@ pipeline
             }
         }
     }
-    /*
     post
     {
         always
@@ -74,5 +70,4 @@ pipeline
             sh "docker rmi $IMAGE | true"
         }
     }
-    */
 } 
