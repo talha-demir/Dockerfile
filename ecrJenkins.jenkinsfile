@@ -41,7 +41,7 @@ pipeline
                 {
                     // Build the docker image using a Dockerfile
                     //docker.build("$IMAGE","dockerfile/Path")
-                    docker.build("$BUILD")
+                    docker.build("$IMAGE")
                 }
             }
         }
@@ -57,7 +57,7 @@ pipeline
                     //docker.withRegistry(ECRURL, ECRCRED)
                     //docker.withRegistery(ECRURL, ECRCRED)
                     //{
-                        docker.image("$BUILD").push()
+                        docker.image("$IMAGE").push()
                     //}
                 }
             }
