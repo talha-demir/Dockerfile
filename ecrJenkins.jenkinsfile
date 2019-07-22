@@ -86,7 +86,7 @@ pipeline
 
 
                     echo "====++++Deployment zip to S3++++===="
-                    sh 'aws s3 cp $ZIP s3://$EB_BUCKET/"IMAGE.zip"'
+                    sh 'aws s3 cp $ZIP s3://$EB_BUCKET/$IMAGE.zip'
 
                     echo "====++++yeni app versiyon oluşturma++++===="
                     // Create a new application version with the zipped up Dockerrun file
