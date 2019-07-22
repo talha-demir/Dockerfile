@@ -101,14 +101,13 @@ pipeline
                 }
             }
         }
-
-    }
-    post
-    {
-        always
+        post
         {
-            // make sure that the Docker image is removed
-            sh "docker rmi $ECRURL:$IMAGE | true"
+            always
+            {
+                // make sure that the Docker image is removed
+                sh "docker rmi $ECRURL:$IMAGE | true"
+            }
         }
     }
     
