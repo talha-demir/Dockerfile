@@ -91,6 +91,11 @@ pipeline
                     echo "====++++Deployment zip to S3++++===="
                     sh 'aws s3 cp $IMAGE.zip s3://$EB_BUCKET/${IMAGE}.zip'
 
+                    echo "====++++$IMAGE++++===="
+
+
+
+
                     echo "====++++yeni app versiyon oluşturma++++===="
                     // Create a new application version with the zipped up Dockerrun file
                     sh 'aws elasticbeanstalk create-application-version --application-name $NAME-application \
