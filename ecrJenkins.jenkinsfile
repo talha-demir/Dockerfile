@@ -10,7 +10,6 @@ pipeline
         VERSION = 'latest'
         PROJECT = 'pim_api'
         IMAGE = 'image'
-        //ECRURL = '842810336739.dkr.ecr.eu-west-1.amazonaws.com'
         REGION = 'eu-west-1'
         ENVIRONMENT_NAME = 'static-web-elbtype-app'
         APP_NAME = 'StaticWeb'
@@ -68,74 +67,60 @@ pipeline
             }
         }
 
-        stage('Create AWSEB Zip')
+        stage('upload S3')
         {
             steps
             {
                 script
                 {
                     echo "====++++create Dockerrun.aws.json++++===="
-
-
-
-
+                    //Dockerrun.aws.json'a region set ediliyor
                     sh """sed -i "s/<REGION>/${REGION}/" Dockerrun.aws.json"""
-
+                    //Dockerrun.aws.json'a repository name set ediliyor
                     sh """sed -i "s/<REPOSITORY_NAME>/${ECR_REPO_NAME}/" Dockerrun.aws.json"""
-
-
-
-
-
-
-                    // Replace the <AWS_ACCOUNT_ID> with the real ID
+                    // Dockerrun.aws.json'a AWS_ACCOUNT_ID set adiliyor
                     sh """sed -i "s/<AWS_ACCOUNT_ID>/${AWS_ACCOUNT_ID}/" Dockerrun.aws.json"""
-                    // Replace the <NAME> with the real name,
-                    sh 'cat Dockerrun.aws.json'
+                    // Dockerrun.aws.json'a projectname set ediliyor
                     sh """sed -i "s/<PROJECTNAME>/${PROJECT}/" Dockerrun.aws.json"""
-                    //# Replace the <TAG> with the real version number
-                    sh 'cat Dockerrun.aws.json'
+                    //Dockerrun.aws.json'a tag set ediliyor
                     sh """sed -i "s/<TAG>/${VERSION}/" Dockerrun.aws.json"""
-                    sh 'cat Dockerrun.aws.json'
+                    //Dockerrun.aws.json dosyası zipleniyor
                     sh "zip ${IMAGE}.zip Dockerrun.aws.json"
-
-                    sh 'ls -la'
-
-                    echo "====++++Deployment zip to S3++++===="
-                    
-                    sh """aws s3 cp ${IMAGE}.zip s3://${EB_BUCKET}/pimapi/${IMAGE}.zip"""
-
-                    echo "====++++yeni app versiyon oluşturma++++===="
+                    //oluşturulan zip dosyası s3'e upload ediliyor
+                    sh """aws s3 cp ${IMAGE}.zip s3://${EB_BUCKET}/${PROJECT}/${IMAGE}.zip"""
+                }
+            }
+        }
+        stage('Deploy')
+        {
+            steps
+            {
+                script
+                {
                     // Create a new application version with the zipped up Dockerrun file
-
                     sh """aws elasticbeanstalk create-application-version \
-                          --region eu-west-1 \
+                          --region ${REGION} \
                           --application-name ${APP_NAME} \
                           --description ${IMAGE} \
                           --version-label ${VERSION} \
                           --source-bundle S3Bucket="${EB_BUCKET}",S3Key="pimapi/${IMAGE}.zip" \
-                          --no-auto-create-application"""
-                    
+                          --no-auto-create-application"""   
                     echo "====++++yeni app versiyon ile environment güncelleme++++===="
                     // Update the environment to use the new application version
                     sh """aws elasticbeanstalk update-environment \
-                          --region eu-west-1 \
+                          --region ${REGION} \
                           --environment-name ${ENVIRONMENT_NAME} \
                           --version-label ${VERSION}"""
-
-                    echo "====++++success++++===="
-                    /*
-                    post
-                    {
-                        always
-                        {
-                            // make sure that the Docker image is removed
-                            sh "docker rmi $ECRURL:$IMAGE | true"
-                        }
-                    }
-                    */
                 }
             }
         }
+        post
+        {
+            always
+            {
+                // make sure that the Docker image is removed
+                sh "docker rmi $ECRURL:$IMAGE | true"
+            }
+        }
     }
-} 
+}
