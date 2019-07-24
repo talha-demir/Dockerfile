@@ -93,6 +93,7 @@ pipeline
                     echo "====++++image:$IMAGE++++===="
 
 
+                    sh 'echo $IMAGE $PROJECT $VERSION'
                     sh 'zip -r $IMAGE.zip Dockerrun.aws.json'
 
                     echo "====++++Deployment zip to S3++++===="
