@@ -92,7 +92,8 @@ pipeline
 
 
                     echo "====++++Deployment zip to S3++++===="
-                    sh 'aws s3 cp "$IMAGE.zip" s3://$EB_BUCKET/pimapi/"$IMAGE".zip'
+                    def zipname = "$IMAGE.zip"
+                    sh 'aws s3 cp "$IMAGE.zip" s3://$EB_BUCKET/pimapi/$zipname'
 
                     echo "====++++$IMAGE++++===="
 
