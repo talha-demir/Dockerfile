@@ -110,6 +110,8 @@ pipeline
                           --environment-name ${ENVIRONMENT_NAME} \
                           --version-label ${VERSION}"""
 
+                    echo "====++++başarılı++++===="
+
                     post
                     {
                         always
