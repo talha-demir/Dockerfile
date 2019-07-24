@@ -113,18 +113,18 @@ pipeline
                           --version-label ${VERSION}"""
                 }
             }
-        }
-
-        post
-        {
-            always
-            {          
-                script
-                {
-                    // make sure that the Docker image is removed
-                    sh "docker rmi $ECRURL:$IMAGE | true"
+            post
+            {
+                always
+                {          
+                    script
+                    {
+                        // make sure that the Docker image is removed
+                        sh "docker rmi ${AWS_ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com/${ECR_REPO_NAME}:${IMAGE} | true"
+                    }
                 }
             }
+
         }
     }
 }
