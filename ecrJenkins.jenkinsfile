@@ -105,8 +105,9 @@ pipeline
                     
                     echo "====++++yeni app versiyon ile environment güncelleme++++===="
                     // Update the environment to use the new application version
-                    sh """aws elasticbeanstalk update-environment --environment-name ${ENVIRONMENT_NAME} \
-                          --region eu-west-1
+                    sh """aws elasticbeanstalk update-environment \
+                          --region eu-west-1 \
+                          --environment-name ${ENVIRONMENT_NAME} \
                           --version-label ${VERSION}"""
 
                     post
