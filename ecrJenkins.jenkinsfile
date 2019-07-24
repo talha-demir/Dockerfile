@@ -132,6 +132,7 @@ pipeline
                 success {
                 echo 'This will run only if successful'
                 echo 'Pushing EBS'
+                echo "====++++something++++===="
                 slackSend (color: "${env.SLACK_COLOR_GOOD}",
                     channel: "#general",
                     message: "*SUCCESS:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} by ${env.USER_ID}\n More info at: ${env.BUILD_URL}")
