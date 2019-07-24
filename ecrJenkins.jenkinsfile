@@ -80,7 +80,7 @@ pipeline
 
                     echo "====++++$aws_account_id:$AWS_ACCOUNT_ID++++===="
                     // Replace the <AWS_ACCOUNT_ID> with the real ID
-                    sh 'sed "s/<AWS_ACCOUNT_ID>/$AWS_ACCOUNT_ID/" Dockerrun.aws.json'
+                    sh """sed "s/<AWS_ACCOUNT_ID>/$AWS_ACCOUNT_ID/" Dockerrun.aws.json"""
                     // Replace the <NAME> with the real name,
                     echo "====++++project:$PROJECT++++===="
                     sh 'sed "s/<PROJECTNAME>/$PROJECT/" Dockerrun.aws.json'
