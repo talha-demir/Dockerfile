@@ -2,7 +2,7 @@ pipeline
 {
     options
     {
-        buildDiscarder(logRotator(numToKeepStr: '3')) //Sadece bu sayıdaki build log'ları tutulacaktır.
+        buildDiscarder(logRotator(numToKeepStr: '4')) //Sadece bu sayıdaki build log'ları tutulacaktır.
     }
     agent any //herhangibir agent'ta derleyebilirsin
     environment //environment variable tanımlanıyor
