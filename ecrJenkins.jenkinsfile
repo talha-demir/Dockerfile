@@ -16,6 +16,11 @@ pipeline
         AWS_ACCOUNT_ID = '842810336739'
         EB_BUCKET = "elasticbeanstalk-eu-west-1-842810336739"
         ECR_REPO_NAME = "talhadeneme"
+        //Slack Colors
+        SLACK_COLOR_DANGER  = '#E01563'
+        SLACK_COLOR_INFO    = '#6ECADC'
+        SLACK_COLOR_WARNING = '#FFC300'
+        SLACK_COLOR_GOOD    = '#3EB991'
         
     }
     stages
@@ -125,7 +130,14 @@ pipeline
                     }
                 }
             }
+            success {
+            echo 'This will run only if successful'
+            echo 'Pushing EBS'
+            slackSend (color: "${env.SLACK_COLOR_GOOD}",
+                channel: "#tickets",
+                message: "*SUCCESS:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} by ${env.USER_ID}\n More info at: ${env.BUILD_URL}")
 
+        }
         }
     }
 }
