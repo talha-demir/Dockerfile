@@ -78,11 +78,14 @@ pipeline
 
                     echo "====++++create Dockerrun.aws.json++++===="
 
+                    echo "====++++$AWS_ACCOUNTID++++===="
                     // Replace the <AWS_ACCOUNT_ID> with the real ID
                     sh 'sed "s/<AWS_ACCOUNT_ID>/$AWS_ACCOUNT_ID/" Dockerrun.aws.json'
-                    // Replace the <NAME> with the real name
+                    // Replace the <NAME> with the real name,
+                    echo "====++++$PROJECT++++===="
                     sh 'sed "s/<PROJECTNAME>/$PROJECT/" Dockerrun.aws.json'
                     //# Replace the <TAG> with the real version number
+                    echo "====++++$VERSION++++===="
                     sh 'sed "s/<TAG>/$VERSION/" Dockerrun.aws.json'
 
                     sh 'zip -r "$IMAGE.zip" Dockerrun.aws.json'
