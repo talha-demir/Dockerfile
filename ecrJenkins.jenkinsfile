@@ -129,15 +129,15 @@ pipeline
                         sh "rm -r *"
                     }
                 }
-            }
-            success {
-            echo 'This will run only if successful'
-            echo 'Pushing EBS'
-            slackSend (color: "${env.SLACK_COLOR_GOOD}",
-                channel: "#tickets",
-                message: "*SUCCESS:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} by ${env.USER_ID}\n More info at: ${env.BUILD_URL}")
+                success {
+                echo 'This will run only if successful'
+                echo 'Pushing EBS'
+                slackSend (color: "${env.SLACK_COLOR_GOOD}",
+                    channel: "#tickets",
+                    message: "*SUCCESS:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER} by ${env.USER_ID}\n More info at: ${env.BUILD_URL}")
 
-        }
+                }
+            }
         }
     }
 }
