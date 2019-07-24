@@ -62,7 +62,7 @@ pipeline
                     //docker.withRegistry(ECRURL, ECRCRED)
                     //docker.withRegistery(ECRURL, ECRCRED)
                     //{
-                        docker.image("$ECRURL:${IMAGE}").push()
+                        docker.image("${AWS_ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com/${ECR_REPO_NAME}:${IMAGE}").push()
                     //}
                 }
             }
