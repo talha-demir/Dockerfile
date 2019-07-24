@@ -2,7 +2,7 @@ pipeline
 {
     options
     {
-        buildDiscarder(logRotator(numToKeepStr: '4')) //Sadece bu sayıdaki build log'ları tutulacaktır.
+        buildDiscarder(logRotator(numToKeepStr: '4')) //Sadece bu sayıdaki build log'ları tutulacaktır(arayüzdeki build history kısmı).
     }
     agent any //herhangibir agent'ta derleyebilirsin
     environment //environment variable tanımlanıyor
@@ -121,6 +121,7 @@ pipeline
                     {
                         // make sure that the Docker image is removed
                         sh "docker rmi ${AWS_ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com/${ECR_REPO_NAME}:${IMAGE} | true"
+                        sh "rm -r *"
                     }
                 }
             }
