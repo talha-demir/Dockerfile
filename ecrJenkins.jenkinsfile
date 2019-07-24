@@ -98,7 +98,7 @@ pipeline
                     sh """aws elasticbeanstalk create-application-version \
                           --region eu-west-1 \
                           --application-name ${APP_NAME} \
-                          --description ${IMAGE}
+                          --description ${IMAGE} \
                           --version-label ${VERSION} \
                           --source-bundle S3Bucket="${EB_BUCKET}",S3Key="pimapi/${IMAGE}.zip" \
                           --no-auto-create-application"""
