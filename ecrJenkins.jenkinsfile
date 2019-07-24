@@ -125,6 +125,7 @@ pipeline
 
                     echo "====++++success++++===="
                     echo "====++++something++++===="
+                    /*
                     post
                     {
                         always
@@ -133,6 +134,7 @@ pipeline
                             sh "docker rmi $ECRURL:$IMAGE | true"
                         }
                     }
+                    */
                 }
             }
         }
