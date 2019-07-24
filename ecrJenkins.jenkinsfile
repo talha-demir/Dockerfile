@@ -99,6 +99,8 @@ pipeline
 
                     sh 'zip "${IMAGE}.zip" Dockerrun.aws.json'
 
+                    sh 'ls -la'
+
                     echo "====++++Deployment zip to S3++++===="
                     
                     sh """aws s3 cp $IMAGE.zip s3://$EB_BUCKET/pimapi/$IMAGE.zip"""
