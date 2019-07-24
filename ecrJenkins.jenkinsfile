@@ -103,7 +103,7 @@ pipeline
                           --application-name ${APP_NAME} \
                           --description ${IMAGE} \
                           --version-label ${VERSION} \
-                          --source-bundle S3Bucket="${EB_BUCKET}",S3Key="pimapi/${IMAGE}.zip" \
+                          --source-bundle S3Bucket="${EB_BUCKET}",S3Key="${PROJECT}/${IMAGE}.zip" \
                           --no-auto-create-application"""   
                     echo "====++++yeni app versiyon ile environment güncelleme++++===="
                     // Update the environment to use the new application version
