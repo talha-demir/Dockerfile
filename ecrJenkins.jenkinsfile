@@ -1,4 +1,4 @@
-def VERSION = 'UNKNOWN'
+def zipname = 'UNKNOWN'
 def IMAGE = 'UNKNOWN'
 
 pipeline
@@ -88,12 +88,15 @@ pipeline
                     echo "====++++version:$VERSION++++===="
                     sh 'sed "s/<TAG>/$VERSION/" Dockerrun.aws.json'
                     echo "====++++image:$IMAGE++++===="
+
+
+                    zipname = "$IMAGE.zip"
                     sh 'zip -r $IMAGE.zip Dockerrun.aws.json'
 
 
                     echo "====++++Deployment zip to S3++++===="
                     
-                    sh 'aws s3 cp $IMAGE.zip s3://$EB_BUCKET/pimapi/${IMAGE}'
+                    sh 'aws s3 cp $IMAGE.zip s3://$EB_BUCKET/pimapi/${zipname}'
 
                     echo "====++++$IMAGE++++===="
 
