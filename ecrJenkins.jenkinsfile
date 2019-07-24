@@ -94,11 +94,11 @@ pipeline
 
                     echo "====++++yeni app versiyon oluşturma++++===="
                     // Create a new application version with the zipped up Dockerrun file
-                    sh """aws elasticbeanstalk create-application-version \
+                    sh 'aws elasticbeanstalk create-application-version \
                           --region eu-west-1 \
                           --application-name ${APP_NAME} \
                           --version-label ${VERSION} \
-                          --source-bundle S3Bucket="${EB_BUCKET}",S3Key="${IMAGE}.zip""""
+                          --source-bundle S3Bucket="${EB_BUCKET}",S3Key="${IMAGE}.zip"'
                     
                     echo "====++++yeni app versiyon ile environment güncelleme++++===="
                     // Update the environment to use the new application version
