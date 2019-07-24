@@ -124,7 +124,6 @@ pipeline
                           --version-label ${VERSION}"""
 
                     echo "====++++success++++===="
-                    echo "====++++something++++===="
                     /*
                     post
                     {
