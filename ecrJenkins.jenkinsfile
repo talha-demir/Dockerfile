@@ -76,7 +76,7 @@ pipeline
             {
                 script
                 {
-                    IMAGE = "${PROJECT}-${VERSION}"
+                    //IMAGE = "${PROJECT}-${VERSION}"
 
                     echo "====++++create Dockerrun.aws.json++++===="
 
