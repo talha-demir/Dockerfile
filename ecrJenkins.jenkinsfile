@@ -16,6 +16,8 @@ pipeline
         APP_NAME = 'StaticWeb'
         AWS_ACCOUNT_ID = '842810336739'
         EB_BUCKET = "elasticbeanstalk-eu-west-1-842810336739"
+        REGION = "eu-west-1"
+        ECR_REPO_NAME = "talhadeneme"
         
     }
     stages
@@ -74,6 +76,18 @@ pipeline
                 script
                 {
                     echo "====++++create Dockerrun.aws.json++++===="
+
+
+
+
+                    sh """sed -i "s/<REGION>/${REGION}/" Dockerrun.aws.json"""
+
+                    sh """sed -i "s/<REPOSITORY_NAME>/${ECR_REPO_NAME}/" Dockerrun.aws.json"""
+
+
+
+
+
 
                     // Replace the <AWS_ACCOUNT_ID> with the real ID
                     sh """sed -i "s/<AWS_ACCOUNT_ID>/${AWS_ACCOUNT_ID}/" Dockerrun.aws.json"""
