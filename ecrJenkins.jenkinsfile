@@ -123,7 +123,7 @@ pipeline
                           --environment-name ${ENVIRONMENT_NAME} \
                           --version-label ${VERSION}"""
 
-                    echo "====++++başarılı++++===="
+                    echo "====++++success++++===="
 
                     post
                     {
