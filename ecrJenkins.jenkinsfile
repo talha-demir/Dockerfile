@@ -16,7 +16,6 @@ pipeline
         APP_NAME = 'StaticWeb'
         AWS_ACCOUNT_ID = '842810336739'
         EB_BUCKET = "elasticbeanstalk-eu-west-1-842810336739"
-        REGION = "eu-west-1"
         ECR_REPO_NAME = "talhadeneme"
         
     }
