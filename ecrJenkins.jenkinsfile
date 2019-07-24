@@ -90,7 +90,7 @@ pipeline
                     //# Replace the <TAG> with the real version number
                     sh 'cat Dockerrun.aws.json'
                     echo "====++++version:$VERSION++++===="
-                    sh 'sed -i "s/<TAG>/$VERSION/" Dockerrun.aws.json'
+                    sh """sed -i "s/<TAG>/${VERSION}/" Dockerrun.aws.json"""
                     sh 'cat Dockerrun.aws.json'
                     echo "====++++image:$IMAGE++++===="
 
