@@ -114,6 +114,7 @@ pipeline
                 }
             }
         }
+        /*
         post
         {
             always
@@ -122,5 +123,6 @@ pipeline
                 sh "docker rmi $ECRURL:$IMAGE | true"
             }
         }
+        */
     }
 }
