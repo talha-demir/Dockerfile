@@ -1,6 +1,3 @@
-def zipname = 'UNKNOWN'
-def IMAGE = 'UNKNOWN'
-
 pipeline
 {
     options
@@ -93,17 +90,15 @@ pipeline
 
                     echo "====++++Deployment zip to S3++++===="
                     
-                    sh """aws s3 cp ${IMAGE}.zip s3://$EB_BUCKET/pimapi/${IMAGE}.zip"""
-
-                    echo "====++++$IMAGE++++===="
-
-
-
+                    sh """aws s3 cp ${IMAGE}.zip s3://${EB_BUCKET}/pimapi/${IMAGE}.zip"""
 
                     echo "====++++yeni app versiyon oluşturma++++===="
                     // Create a new application version with the zipped up Dockerrun file
-                    sh 'aws elasticbeanstalk create-application-version --application-name $NAME-application \
-                        --version-label $VERSION --source-bundle S3Bucket=$EB_BUCKET,S3Key="$IMAGE.zip"'
+                    sh """aws elasticbeanstalk create-application-version \
+                          --region eu-west-1 \
+                          --application-name ${APP_NAME} \
+                          --version-label ${VERSION} \
+                          --source-bundle S3Bucket="${EB_BUCKET}",S3Key="${IMAGE}.zip""""
                     
                     echo "====++++yeni app versiyon ile environment güncelleme++++===="
                     // Update the environment to use the new application version
